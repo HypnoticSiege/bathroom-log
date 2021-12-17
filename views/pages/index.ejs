@@ -1,0 +1,51 @@
+<%- include("partials/header", { title: "Home"}) %>
+    <form method="POST">
+        <div class="field">
+            <label class="label">Full Name</label>
+            <div class="control has-icons-left has-icons-right">
+                <input class="input" type="text " name="fullName" placeholder="Your full name." required>
+                <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+                </span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Period</label>
+            <div class="control">
+                <div class="select">
+                    <select name="period" required>
+                    <option>0</option>
+                    <option>1st</option>
+                    <option>2nd</option>
+                    <option>3rd</option>
+                    <option>4th</option>
+                    <option>5th</option>
+                    <option>6th</option>
+                    <option>7th</option>
+                </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Grade</label>
+            <div class="control">
+                <div class="select">
+                    <select name="grade" required>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                </select>
+                </div>
+            </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="submit" class="button is-link">Submit</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <small>By filling this form out, you agree that some information about your device may be stored for privacy and security reasons.</small>
+    <%- include("partials/footer") %>

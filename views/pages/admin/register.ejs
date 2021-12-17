@@ -1,0 +1,33 @@
+<%- include("../partials/header", { title: "Register"}) %>
+    <form method="POST">
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control has-icons-left has-icons-right">
+                <input class="input" type="name" name="name" placeholder="Enter your name...">
+                <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Email Address</label>
+            <div class="control has-icons-left has-icons-right">
+                <input class="input" type="email" name="email" placeholder="Enter your email...">
+                <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left has-icons-right">
+                <input class="input" type="password" name="password" placeholder="Create a password...">
+                <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
+            </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="submit" class="button is-link">Register</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <small>If you are a student and caught logging into a administrative account, punishment will be given.</small>
+    <%- include("../partials/footer") %>
