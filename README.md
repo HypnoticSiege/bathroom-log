@@ -9,12 +9,12 @@ This application was made using many technologies that are listed below.
 - [Passport](http://www.passportjs.org/) - Administrator Account Authentication
 - [JSON](https://www.json.org/) - Main Database to store Students & Teachers (Plan on switching to [MongoDB](https://www.mongodb.com/))
 # Installation
-Install all needed packages  
+### Install all needed packages  
 ```
 npm install
 ```  
-Add your Administrators and Students to the two JSON files found in ``./data/``  
-Start it!  
+### Add your Administrators and Students to the two JSON files found in ``./data/``  
+#### Start it!  
 ```
 node index.js
 ```
