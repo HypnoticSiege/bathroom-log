@@ -18,3 +18,15 @@ npm install
 ```
 node index.js
 ```
+# Work in Progess
+- Count a student's bathroom uses in one day.
+- Count lifetime bathroom uses by a student.
+- Find a way to prevent brute-forcing admin accounts.
+- Auto-Complete Student lookup on admin page?
+- More Administrative functions.
+
+# Contributing
+Contributing to this project would be greatly appreciated! If you would like to add any features or do any of the WIP's, you can fork this project and open a pull request!
+
+# Contact
+If you have any questions regarding Bathroom Log, you can contact me either on my [Website](https://hypnoticsiege.net/contact) or [Email Me](mailto:luis@hypnoticsiege.net?subject=Bathroom Log)
