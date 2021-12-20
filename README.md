@@ -29,4 +29,4 @@ node index.js
 Contributing to this project would be greatly appreciated! If you would like to add any features or do any of the WIP's, you can fork this project and open a pull request!
 
 # Contact
-If you have any questions regarding Bathroom Log, you can contact me either on my [Website](https://hypnoticsiege.net/contact) or [Email Me](mailto:luis@hypnoticsiege.net?subject=Bathroom Log)
+If you have any questions regarding Bathroom Log, you can contact me either on my [Website](https://hypnoticsiege.net/contact), opening an issue here on GitHub, or emailing me at [luis@hypnoticsiege.net](mailto:luis@hypnoticsiege.net?subject=Bathroom Log)!
