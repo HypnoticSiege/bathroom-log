@@ -14,7 +14,7 @@ This application was made using many technologies that are listed below.
 npm install
 ```  
 ### Add your Administrators and Students to the two JSON files found in ``./data/``  
-#### Start it!  
+### Start Bathroom Log
 ```
 node index.js
 ```
