@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  api-server:
+  express-app:
     build:
       context: .
     container_name: bathroom-log
