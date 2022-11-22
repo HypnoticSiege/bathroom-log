@@ -19,7 +19,7 @@ const port = 3000;
 const app = (0, express_1.default)()
     .use(express_1.default.static('public'))
     .use('/assets', express_1.default.static(__dirname + 'public/'))
-    .set('views', './views')
+    .set('views', '/views')
     .set('view engine', 'ejs')
     .use(express_1.default.static(node_path_1.default.join(__dirname, 'views')));
 express_1.default.static(node_path_1.default.join(__dirname, "./public"));
