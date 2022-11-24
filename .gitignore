@@ -78,3 +78,4 @@ typings/
 # Project files
 .DS_Store
 public/css/tailwind/output.css
+dist

@@ -15,6 +15,7 @@
     "author": "Luis Quezada - luis@quzada.nl",
     "license": "ISC",
     "dependencies": {
+        "@supabase/supabase-js": "^2.1.1",
         "ejs": "^3.1.8",
         "express": "^4.18.2",
         "node-fetch": "^3.3.0"

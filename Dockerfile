@@ -4,17 +4,17 @@ FROM node:18 as base
 COPY package.json ./
 COPY yarn.lock ./
 
-# Install deps
+# Install deps w/ yarn
 RUN yarn install
 
-# Copy source
+# Copy source code
 COPY src ./src
 COPY public /public
 COPY ./views /views
 COPY tailwind.config.js ./tailwind.config.js
 COPY tsconfig.json ./tsconfig.json
 
-# Build dist
+# Build dist folder
 RUN yarn build
 
 # Start production image build
@@ -24,6 +24,5 @@ FROM gcr.io/distroless/nodejs18-debian11
 COPY --from=base ./node_modules ./node_modules
 COPY --from=base /dist /dist
 
-# Expose port 3000
-EXPOSE 3000
+
 CMD ["dist/index.js"]

@@ -1,10 +1,10 @@
-version: "3"
+version: "3.8"
 
 services:
-  express-app:
+  web:
     build:
       context: .
-    container_name: bathroom-log
+    container_name: web
     image: bathroom-log
     restart: unless-stopped
     environment:
@@ -18,6 +18,8 @@ services:
       - app-network
     ports:
       - "3000:3000"
+    expose:
+      - 3000
 
 networks:
   app-network:

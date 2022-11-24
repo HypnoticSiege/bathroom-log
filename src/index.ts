@@ -1,10 +1,9 @@
 // Import all modules and libraries needed
+require('dotenv').config();
 import express from 'express';
 import path from 'node:path';
-import fs from 'node:fs';
 import utils from './utils';
 
-const port = 3000;
 const app = express()
     .use(express.static('public'))
     .use('/assets', express.static(__dirname + 'public/'))
@@ -54,9 +53,9 @@ app.get('/students/:id', function (req, res) {
         user: user
     });
 });
-app.listen(port, function () {
+app.listen(process.env.port || 3000, function () {
     console.clear();
     console.log(`Bathroom Log | System Online`)
     console.log(`Made by Luis Quezada - https://quezada.nl`);
-    console.log(`[INFO] Online on localhost:${port}`)
+    console.log(`[INFO] Online on localhost:${process.env.port || 3000}`);
 });
