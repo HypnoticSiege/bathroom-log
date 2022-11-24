@@ -7,7 +7,7 @@ import utils from './utils';
 const app = express()
     .use(express.static('public'))
     .use('/assets', express.static(__dirname + 'public/'))
-    .set('views', '/views')
+    .set('views', 'views')
     .set('view engine', 'ejs')
     .use(express.static(path.join(__dirname, 'views')));
 express.static(path.join(__dirname, "./public"));
@@ -53,6 +53,11 @@ app.get('/students/:id', function (req, res) {
         user: user
     });
 });
+
+app.get('/register', function (req, res) {
+    res.render('register');
+})
+
 app.listen(process.env.port || 3000, function () {
     console.clear();
     console.log(`Bathroom Log | System Online`)
