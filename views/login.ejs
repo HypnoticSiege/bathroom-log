@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+<form method="POST" action="/backend/register" class="mt-5 ml-5">
+    <label class="label mt-2">
+        <span class="label-text">Email Address:</span>
+    </label>
+    <input type="email" placeholder="Type here" class="input w-full max-w-xs" name="email" required />
+
+    <label class="label mt-2">
+        <span class="label-text">Password:</span>
+    </label>
+    <input type="password" placeholder="Type here" class="input w-full max-w-xs" name="password" required />
+
+    <button class="btn btn-info btn-wide block mt-3" type="submit">Login</button>
+    <small>
+        Don't have an account? Register <a href="/register">here!</a>
+    </small>
+</form>
+    <%- include('partials/footer') %>

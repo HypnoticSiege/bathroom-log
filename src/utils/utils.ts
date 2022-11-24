@@ -71,12 +71,39 @@ const registerUser = async (name: string, email: string, password: string, subsc
         subscribed: subscribed
       }
     }
-  })
+  });
+
+  if (error) {
+    console.log(error);
+    return false;
+  }
+
+  return data;
+};
+
+const loginUser = async (email: string, password: string) => {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if (error) return { user: null, session: null };
+  return data;
+};
+
+const setSession = async (refresh_token: string, access_token: string) => {
+  const { data, error } = await supabase.auth.setSession({ refresh_token, access_token });
+  
+  if (error) return false;
+  return data;
 };
 
 const utils = {
-    getStudent,
-    getAllStudents
+  getStudent,
+  getAllStudents,
+  registerUser,
+  loginUser,
+  setSession
 };
 
 export default utils;

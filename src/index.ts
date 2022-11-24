@@ -1,6 +1,7 @@
 // Import all modules and libraries needed
 require('dotenv').config();
 import express from 'express';
+import bodyParser from 'body-parser';
 import path from 'node:path';
 import utils from './utils';
 
@@ -9,6 +10,7 @@ const app = express()
     .use('/assets', express.static(__dirname + 'public/'))
     .set('views', 'views')
     .set('view engine', 'ejs')
+    .use(bodyParser.urlencoded({ extended: true }))
     .use(express.static(path.join(__dirname, 'views')));
 express.static(path.join(__dirname, "./public"));
 
@@ -56,7 +58,36 @@ app.get('/students/:id', function (req, res) {
 
 app.get('/register', function (req, res) {
     res.render('register');
-})
+});
+app.get('/login', function (req, res) {
+    res.render('login');
+});
+
+
+app.post('/backend/register', async function (req, res) {
+    let name = req.body.name,
+        email = req.body.email,
+        password = req.body.password,
+        subscribed = req.body.subscribed;
+    
+    let data = await utils.registerUser(name, email, password, subscribed);
+    console.log(data);
+    res.redirect('/login');
+});
+
+app.post('/backend/login', async function (req, res) {
+    let email = req.body.email,
+        password = req.body.password;
+    
+    let data = await utils.loginUser(email, password);
+
+     if (data.user === null) {
+        res.redirect(`/login?err=${encodeURIComponent(`Invalid email or password.`)}`);
+    } else {
+        await utils.setSession(data.session.refresh_token, data.session.access_token)
+        res.redirect('/');
+    };
+});
 
 app.listen(process.env.port || 3000, function () {
     console.clear();
