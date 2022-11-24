@@ -1,4 +1,5 @@
 import supabase from "../supabase";
+
 const db = [
   {
     name : 'John',
@@ -51,6 +52,26 @@ const getStudent = (id: Number) => {
 
 const getAllStudents = () => {
     return db;
+};
+
+/**
+ * 
+ * @param name Name of user 
+ * @param email Email of user 
+ * @param password Password of user
+ * @param subscribed If user is subscribed to newsletter
+ */
+const registerUser = async (name: string, email: string, password: string, subscribed: boolean) => {
+  const { data, error } = await supabase.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      data: {
+        name: name,
+        subscribed: subscribed
+      }
+    }
+  })
 };
 
 const utils = {
