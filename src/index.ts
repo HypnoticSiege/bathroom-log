@@ -70,8 +70,7 @@ app.post('/backend/register', async function (req, res) {
         password = req.body.password,
         subscribed = req.body.subscribed;
     
-    let data = await utils.registerUser(name, email, password, subscribed);
-    console.log(data);
+    await utils.registerUser(name, email, password, subscribed);
     res.redirect('/login');
 });
 
@@ -81,10 +80,12 @@ app.post('/backend/login', async function (req, res) {
     
     let data = await utils.loginUser(email, password);
 
-     if (data.user === null) {
+    if (data.user === null) {
+        console.log('Login failed');
         res.redirect(`/login?err=${encodeURIComponent(`Invalid email or password.`)}`);
     } else {
-        await utils.setSession(data.session.refresh_token, data.session.access_token)
+        await utils.setSession(data.session.refresh_token, data.session.access_token);
+        console.log('Logged in')
         res.redirect('/');
     };
 });
