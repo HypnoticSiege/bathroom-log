@@ -2,8 +2,10 @@
 require('dotenv').config();
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import path from 'node:path';
 import utils from './utils';
+import supabase from './supabase';
 
 const app = express()
     .use(express.static('public'))
@@ -11,8 +13,17 @@ const app = express()
     .set('views', 'views')
     .set('view engine', 'ejs')
     .use(bodyParser.urlencoded({ extended: true }))
+    .use(cookieParser())
     .use(express.static(path.join(__dirname, 'views')));
 express.static(path.join(__dirname, "./public"));
+
+// get user from cookie on every request
+app.use(async (req, res, next) => {
+    const user = await supabase.auth.getUser(req.cookies['access_token']);
+    req.user = user || null;
+
+    next();
+});
 
 app.get('/', async function (req, res) {
     let repoData = await fetch('https://api.github.com/repos/HypnoticSiege/express-typescript-boilerplate', {
@@ -63,6 +74,16 @@ app.get('/login', function (req, res) {
     res.render('login');
 });
 
+app.get('/protected', async function (req, res) {
+    const user = await supabase.auth.getUser(req.cookies['access_token']);
+    console.log(user);
+
+    if (user) {
+        res.send('You are logged in!');
+    } else {
+        res.redirect('/login');
+    }
+});
 
 app.post('/backend/register', async function (req, res) {
     let name = req.body.name,
@@ -70,7 +91,7 @@ app.post('/backend/register', async function (req, res) {
         password = req.body.password,
         subscribed = req.body.subscribed;
     
-    await utils.registerUser(name, email, password, subscribed);
+    await utils.auth.registerUser(name, email, password, subscribed);
     res.redirect('/login');
 });
 
@@ -78,14 +99,16 @@ app.post('/backend/login', async function (req, res) {
     let email = req.body.email,
         password = req.body.password;
     
-    let data = await utils.loginUser(email, password);
+    let userData = await utils.auth.loginUser(email, password);
 
-    if (data.user === null) {
+    if (userData.user === null) {
         console.log('Login failed');
+        
         res.redirect(`/login?err=${encodeURIComponent(`Invalid email or password.`)}`);
     } else {
-        await utils.setSession(data.session.refresh_token, data.session.access_token);
-        console.log('Logged in')
+        await utils.auth.setSession(userData.session.refresh_token, userData.session.access_token);
+        res.cookie('access_token', userData.session.access_token, { maxAge: 900000, httpOnly: false });
+
         res.redirect('/');
     };
 });

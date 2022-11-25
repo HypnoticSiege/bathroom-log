@@ -101,9 +101,11 @@ const setSession = async (refresh_token: string, access_token: string) => {
 const utils = {
   getStudent,
   getAllStudents,
-  registerUser,
-  loginUser,
-  setSession
+  auth: {
+    setSession,
+    loginUser,
+    registerUser
+  }
 };
 
 export default utils;
