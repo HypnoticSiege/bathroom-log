@@ -98,13 +98,24 @@ const setSession = async (refresh_token: string, access_token: string) => {
   return data;
 };
 
+const isUserLoggedIn = async (req, res, next) => {
+  const user = await supabase.auth.getUser(req.cookies['access_token']);
+
+  if (user.data.user != null) {
+    next();
+  } else {
+    res.redirect('/login');
+  };
+};
+
 const utils = {
   getStudent,
   getAllStudents,
   auth: {
     setSession,
     loginUser,
-    registerUser
+    registerUser,
+    isUserLoggedIn
   }
 };
 

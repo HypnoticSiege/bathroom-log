@@ -54,7 +54,7 @@ app.get('/', async function (req, res) {
         status: discordData.data.discord_status
     })
 });
-app.get('/students', function (req, res) {
+app.get('/students', utils.auth.isUserLoggedIn, function (req, res) {
     res.render('students', {
         users: utils.getAllStudents()
     });
@@ -72,17 +72,6 @@ app.get('/register', function (req, res) {
 });
 app.get('/login', function (req, res) {
     res.render('login');
-});
-
-app.get('/protected', async function (req, res) {
-    const user = await supabase.auth.getUser(req.cookies['access_token']);
-    console.log(user);
-
-    if (user) {
-        res.send('You are logged in!');
-    } else {
-        res.redirect('/login');
-    }
 });
 
 app.post('/backend/register', async function (req, res) {
@@ -103,7 +92,7 @@ app.post('/backend/login', async function (req, res) {
 
     if (userData.user === null) {
         console.log('Login failed');
-        
+
         res.redirect(`/login?err=${encodeURIComponent(`Invalid email or password.`)}`);
     } else {
         await utils.auth.setSession(userData.session.refresh_token, userData.session.access_token);
