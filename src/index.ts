@@ -91,8 +91,6 @@ app.post('/backend/login', async function (req, res) {
     let userData = await utils.auth.loginUser(email, password);
 
     if (userData.user === null) {
-        console.log('Login failed');
-
         res.redirect(`/login?err=${encodeURIComponent(`Invalid email or password.`)}`);
     } else {
         await utils.auth.setSession(userData.session.refresh_token, userData.session.access_token);
