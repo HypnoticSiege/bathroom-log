@@ -1,4 +1,4 @@
-import supabase from "../supabase";
+import auth from "./auth";
 
 const db = [
   {
@@ -54,69 +54,10 @@ const getAllStudents = () => {
     return db;
 };
 
-/**
- * 
- * @param name Name of user 
- * @param email Email of user 
- * @param password Password of user
- * @param subscribed If user is subscribed to newsletter
- */
-const registerUser = async (name: string, email: string, password: string, subscribed: boolean) => {
-  const { data, error } = await supabase.auth.signUp({
-    email: email,
-    password: password,
-    options: {
-      data: {
-        name: name,
-        subscribed: subscribed
-      }
-    }
-  });
-
-  if (error) {
-    console.log(error);
-    return false;
-  }
-
-  return data;
-};
-
-const loginUser = async (email: string, password: string) => {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email,
-    password: password
-  });
-
-  if (error) return { user: null, session: null };
-  return data;
-};
-
-const setSession = async (refresh_token: string, access_token: string) => {
-  const { data, error } = await supabase.auth.setSession({ refresh_token, access_token });
-  
-  if (error) return false;
-  return data;
-};
-
-const isUserLoggedIn = async (req, res, next) => {
-  const user = await supabase.auth.getUser(req.cookies['access_token']);
-
-  if (user.data.user != null) {
-    next();
-  } else {
-    res.redirect('/login');
-  };
-};
-
 const utils = {
   getStudent,
   getAllStudents,
-  auth: {
-    setSession,
-    loginUser,
-    registerUser,
-    isUserLoggedIn
-  }
+  auth
 };
 
 export default utils;
