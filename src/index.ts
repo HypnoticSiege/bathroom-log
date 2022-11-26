@@ -89,13 +89,14 @@ app.post('/backend/login', async function (req, res) {
         password = req.body.password;
     
     let userData = await utils.auth.loginUser(email, password);
+    console.log(userData);
 
     if (userData.user === null) {
         res.redirect(`/login?err=${encodeURIComponent(`Invalid email or password.`)}`);
     } else {
         await utils.auth.setSession(userData.session.refresh_token, userData.session.access_token);
-        res.cookie('access_token', userData.session.access_token, { maxAge: 900000, httpOnly: false });
 
+        res.cookie('access_token', userData.session.access_token, { maxAge: 604800000, httpOnly: false });
         res.redirect('/');
     };
 });
