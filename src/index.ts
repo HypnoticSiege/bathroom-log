@@ -56,7 +56,7 @@ app.get('/', async function (req, res) {
 });
 app.get('/students', utils.auth.isUserLoggedIn, async function (req, res) {
     res.render('students', {
-        users: await utils.db.select('students', '*', 'id')
+        users: await utils.db.select('students', '*')
     });
 });
 app.get('/students/:id', async function (req, res) {
