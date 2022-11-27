@@ -1,14 +1,14 @@
 <%- include('partials/header') %>
 
-    <h1>Users</h1>
+    <h1 class="ml-4 mt-5 text-5xl font-bold uppercase">Users</h1>
 
-    <ul>
+    <ul class="ml-5">
         <% users.forEach(function(user) { %>
-            <li>
-                <a href="/users/<%= user.id %>">
-                    <%= user.name + ' ' + user.surname %>
+            <li class="mt-4">
+                <a href="/users/<%= user.id %>" class="bg-slate-500 p-2 rounded-md">
+                    <%= user.name  %>
                 </a>
             </li>
-            <% }); %>
+        <% }); %>
     </ul>
     <%- include('partials/footer') %>
