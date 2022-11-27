@@ -54,13 +54,13 @@ app.get('/', async function (req, res) {
         status: discordData.data.discord_status
     })
 });
-app.get('/students', utils.auth.isUserLoggedIn, function (req, res) {
+app.get('/students', utils.auth.isUserLoggedIn, async function (req, res) {
     res.render('students', {
-        users: utils.getAllStudents()
+        users: await utils.db.select('students', '*', 'id')
     });
 });
-app.get('/students/:id', function (req, res) {
-    let user = utils.getStudent(req.params.id);
+app.get('/students/:id', async function (req, res) {
+    let user = await utils.db.select('students', '*', req.params.id);
 
     res.render('viewstudents', {
         user: user
