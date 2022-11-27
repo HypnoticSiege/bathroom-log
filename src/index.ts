@@ -63,7 +63,7 @@ app.get('/students/:id', async function (req, res) {
     let user = await utils.db.select('students', '*', req.params.id);
 
     res.render('viewstudents', {
-        user: user
+        user: user[0]
     });
 });
 
