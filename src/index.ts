@@ -56,11 +56,20 @@ app.get('/', async function (req, res) {
 });
 app.get('/students', utils.auth.isUserLoggedIn, async function (req, res) {
     res.render('students', {
-        users: await utils.db.select('students', '*')
+        users: await utils.db.select({
+            from: 'students',
+            select: '*'
+        })
     });
 });
 app.get('/students/:id', async function (req, res) {
-    let user = await utils.db.select('students', '*', req.params.id);
+    let user = await utils.db.select({
+        from: 'students',
+        select: '*',
+        where: {
+            id: req.params.id
+        }
+    })
 
     res.render('viewstudents', {
         user: user[0]
