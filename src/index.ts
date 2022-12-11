@@ -109,6 +109,11 @@ app.post('/backend/login', async function (req, res) {
         res.redirect('/');
     };
 });
+app.post('/backend/logout', async function (req, res) {
+    await utils.auth.logoutUser();
+    res.clearCookie('supabase-auth-token');
+    res.redirect('/');
+});
 
 app.listen(process.env.port || 3000, function () {
     console.clear();
