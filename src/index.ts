@@ -82,6 +82,11 @@ app.get('/register', function (req, res) {
 app.get('/login', function (req, res) {
     res.render('login');
 });
+app.get('/logout', async function (req, res) {
+    await utils.auth.logoutUser();
+    res.clearCookie('supabase-auth-token');
+    res.redirect('/');
+});
 
 app.post('/backend/register', async function (req, res) {
     let name = req.body.name,
@@ -92,7 +97,6 @@ app.post('/backend/register', async function (req, res) {
     await utils.auth.registerUser(name, email, password, subscribed);
     res.redirect('/login');
 });
-
 app.post('/backend/login', async function (req, res) {
     let email = req.body.email,
         password = req.body.password;
@@ -108,11 +112,6 @@ app.post('/backend/login', async function (req, res) {
         res.cookie('access_token', userData.session.access_token, { maxAge: 604800000, httpOnly: false });
         res.redirect('/');
     };
-});
-app.post('/backend/logout', async function (req, res) {
-    await utils.auth.logoutUser();
-    res.clearCookie('supabase-auth-token');
-    res.redirect('/');
 });
 
 app.listen(process.env.port || 3000, function () {
