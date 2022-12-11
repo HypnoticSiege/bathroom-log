@@ -14,6 +14,7 @@ const app = express()
     .set('view engine', 'ejs')
     .use(bodyParser.urlencoded({ extended: true }))
     .use(cookieParser())
+    .use(utils.auth.middleware)
     .use(express.static(path.join(__dirname, 'views')));
 express.static(path.join(__dirname, "./public"));
 
@@ -80,6 +81,7 @@ app.get('/register', function (req, res) {
     res.render('register');
 });
 app.get('/login', function (req, res) {
+    if (req.user) res.redirect('/');
     res.render('login');
 });
 app.get('/logout', async function (req, res) {
